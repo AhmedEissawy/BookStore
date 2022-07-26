@@ -1,0 +1,62 @@
+﻿@model List<Book>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Books</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table table-bordered table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                Sr.No
+            </th>
+            <th>
+                Title
+            </th>
+            <th>
+                Description
+            </th>
+            <th>
+                Author
+            </th>
+            <th>
+                photo
+            </th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @(Model.IndexOf(item) + 1)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Author.FullName)
+            </td>
+            <td>
+                @if (item.Image != null)
+                {
+                    <img src="~/Images/Books/@item.Image" class="img-thumbnail" width="80" height="80" />
+                }
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-success">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-primary">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
